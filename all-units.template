@@ -14,6 +14,17 @@ temporarilyAddTags: targethangar
 autoTrigger: if not self.numberOfUnitsInEnemyTeam(withTag='hangar1', withinRange=1000, greaterThan=0)
 temporarilyRemoveTags: targethangar
 
+[global_resource_holmium]
+displayName: Holmium
+displayNameShort: Ho
+hidden:false
+#displayPos: 1
+displayWhenZero: false
+displayColor:#a20032
+displayTextPrefix: Holmium:  
+displayNameHideWhenIconShownInText: true
+displayNameHideWhenIconShownInHUD: true
+iconImage: ROOT:shared\graphics\48px-Holmium_plate.png
 
 
 #tags:repairable
