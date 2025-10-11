@@ -13,6 +13,20 @@ animateFrameEnd:5
 animateFrameSpeed:0.7
 #color:
 
+[effect_shell_hit]
+image:ROOT:shared\graphics\shell_hit.png
+
+life: 250
+alpha: 1.0
+fadeOut: true
+total_frames:6
+animateFrameStart:0
+animateFrameEnd:5
+animateFrameSpeed:0.5
+color:#fba936
+
+alsoPlaySound:ROOT:sounds\shell_hit_1.wav:0.35
+
 [effect_flame_start]
 image:ROOT:shared\graphics\flame_start.png
 
