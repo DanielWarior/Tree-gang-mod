@@ -21,7 +21,7 @@ displayName: Crystals
 displayNameShort: Mi
 hidden:false
 displayWhenZero: false
-displayColor:#FFC0CB
+displayColor:#ff3795
 displayTextPrefix: Crystal:  
 displayNameHideWhenIconShownInText: true
 displayNameHideWhenIconShownInHUD: true
