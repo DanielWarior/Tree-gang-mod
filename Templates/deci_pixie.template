@@ -31,7 +31,7 @@ lock_body_rotation_with_main_turret: true
 [attack]
 canAttack: true
 canAttackFlyingUnits: false
-canAttackLandUnits: true
+canAttackLandUnits: if not self.hasParent(withTag='gunOff')
 canAttackUnderwaterUnits: false
 maxAttackRange: 175
 
