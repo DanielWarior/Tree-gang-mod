@@ -19,6 +19,15 @@ canAttackFlyingUnits: if not self.hasParent(withTag='gunOff')
 canAttackLandUnits: if not self.hasParent(withTag='gunOff')
 canAttackUnderwaterUnits: if not self.hasParent(withTag='gunOff')
 
+
+[hiddenAction_turnOffGun]
+autoTrigger: if self.hasParent
+temporarilyAddTags:gunOff
+
+[hiddenAction_turnOnGun]
+autoTrigger: if not self.hasParent
+temporarilyRemoveTags:gunOff
+
 [global_resource_crystal]
 displayName: Crystals
 displayNameShort: Mi
