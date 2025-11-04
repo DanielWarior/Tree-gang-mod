@@ -30,8 +30,8 @@ lock_body_rotation_with_main_turret: true
 
 [attack]
 canAttack: true
-canAttackFlyingUnits: true
-canAttackLandUnits: true
+canAttackFlyingUnits: if not self.hasParent(withTag='gunOff')
+canAttackLandUnits: if not self.hasParent(withTag='gunOff')
 canAttackUnderwaterUnits: false
 maxAttackRange: 150
 
@@ -55,7 +55,7 @@ shoot_sound_vol:0.125
 
 
 [projectile_1]
-life: 15
+life: 20
 deflectionPower: -1
 
 directDamage: 15
