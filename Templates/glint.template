@@ -19,6 +19,8 @@ canNotBeDirectlyAttacked: true
 
 explodeOnDeath: false
 
+autoTriggerCooldownTime: 0.2s
+
 
 
 [graphics]
@@ -34,6 +36,17 @@ canAttackFlyingUnits: if not self.hasParent(withTag='gunOff')
 canAttackLandUnits: if not self.hasParent(withTag='gunOff')
 canAttackUnderwaterUnits: false
 maxAttackRange: 150
+
+
+
+[hiddenAction_prioritize]
+autoTrigger: if self.isAttacking and not self.hasActiveWaypoint(type='attack') and self.numberOfUnitsInEnemyTeam(withTag='missile', greaterThan=0, withinRange=150)
+addWaypoint_target_nearestUnit_tagged: missile
+addWaypoint_target_nearestUnit_team: enemy
+addWaypoint_type: attack
+addWaypoint_prepend: true
+addWaypoint_maxTime: 1s
+allowMultipleInQueue:false
 
 
 
