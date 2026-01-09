@@ -4,7 +4,7 @@ description: Full conversion mod to surpass metal gear
 
 tags: Full conversion, Units, Buildings
 
-thumbnail: test.png
+thumbnail: Thumbnail.png
 minVersion:  1.15p11
 
 [music]
