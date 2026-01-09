@@ -1,6 +1,8 @@
 [core]
 #so you can't see with unfinished shit
 fogOfWarSightRangeWhileNotBuilt:2
+autoTriggerCooldownTime: 0.2s
+@memory stunDebuff:number
 
 
 
@@ -38,6 +40,38 @@ displayTextPrefix: Crystal:
 displayNameHideWhenIconShownInText: true
 displayNameHideWhenIconShownInHUD: true
 iconImage: ROOT:shared\graphics\ocua_core_slot00.png
+
+[hiddenAction_hitstunTimer]
+autoTriggerOnEvent: tookdamage(withTag="stun")
+requireConditional: if not self.tags(includes="iamstunned") and not self.tags(includes="idontlikestuns") and not self.tags(includes="50k") and memory.stunDebuff < 1
+setUnitMemory: stunDebuff = 5
+
+[hiddenAction_hitstunDebuff]
+autoTriggerOnEvent: tookDamage(withTag="stun")
+requireConditional: if not self.tags(includes="iamstunned") and not self.tags(includes="idontlikestuns") and not self.tags(includes="50k")
+setUnitStats: moveSpeed = 0, maxAttackRange = 0
+temporarilyAddTags: iamstunned
+
+[hiddenAction_decrementStunDebuff]
+autoTrigger: if memory.stunDebuff > 0
+setUnitMemory: stunDebuff = memory.stunDebuff -1
+
+[hiddenAction_stunDebuffDeactivate]
+autoTrigger: if memory.stunDebuff == 0
+requireConditional: if self.tags(includes="iamstunned")
+resetUnitStats: true
+temporarilyRemoveTags: iamstunned
+
+[hiddenAction_hitbigstunTimer]
+autoTriggerOnEvent: tookdamage(withTag="bigstun")
+requireConditional: if not self.tags(includes="iamstunned") and not self.tags(includes="idontlikestuns") and not self.tags(includes="50k") and memory.stunDebuff < 1
+setUnitMemory: stunDebuff = 10
+
+[hiddenAction_hitbigstunDebuff]
+autoTriggerOnEvent: tookDamage(withTag="bigstun")
+requireConditional: if not self.tags(includes="iamstunned") and not self.tags(includes="idontlikestuns") and not self.tags(includes="50k")
+setUnitStats: moveSpeed = 0, maxAttackRange = 0
+temporarilyAddTags: iamstunned
 
 
 
