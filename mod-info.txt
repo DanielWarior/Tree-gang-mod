@@ -7,6 +7,6 @@ tags: Full conversion, Units, Buildings
 thumbnail: Thumbnail.png
 minVersion:  1.15p11
 
-[music]
-sourceFolder: music
-whenUsingUnitsFromThisMod_playExclusively: true
+#[music]
+#sourceFolder: music
+#whenUsingUnitsFromThisMod_playExclusively: true
