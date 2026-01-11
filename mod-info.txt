@@ -1,5 +1,5 @@
 [mod]
-title:Tree gang's mod(no-ost)
+title:Tree gang's mod(no-ost) V:0.5.1
 description: Full conversion mod to surpass metal gear
 
 tags: Full conversion, Units, Buildings
