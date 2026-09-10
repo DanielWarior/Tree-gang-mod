@@ -1,5 +1,6 @@
 [core]
 #so you can't see with unfinished shit
+armour:0
 fogOfWarSightRangeWhileNotBuilt:2
 autoTriggerCooldownTime: 0.2s
 @memory stunDebuff:number
@@ -72,6 +73,46 @@ autoTriggerOnEvent: tookDamage(withTag="bigstun")
 requireConditional: if not self.tags(includes="iamstunned") and not self.tags(includes="idontlikestuns") and not self.tags(includes="50k")
 setUnitStats: moveSpeed = 0, maxAttackRange = 0
 temporarilyAddTags: iamstunned
+
+[hiddenAction_slow]
+autoTriggerOnEvent: tookdamage(withTag="slow")
+setUnitStats:moveSpeed=${movement.moveSpeed}/1.4 - 0.1
+resetCustomTimer:true
+
+[hiddenAction_slowRemove]
+autoTrigger: if self.customTimer(laterThanSeconds=2)
+setUnitStats:moveSpeed = ${movement.moveSpeed}
+
+#required to include base stats to make ${section.parameter} work
+[movement]
+moveSpeed:1
+
+#----
+[hiddenAction_spongeShieldCheck]
+autoTriggerCheckRate:everyFrame
+autoTrigger:if not self.hasTags(includes="amsponge") and self.shield() < self.maxShield() and self.hasTags(includes="underSponge")
+addResources:shield=+50
+setCustomTarget2:nearestUnit(withinRange=300, withTag="sponge",relation="ally")
+sendMessageTo: customTarget2
+sendMessageWithTags:deplete
+
+[hiddenAction_spongeShieldAddTag]
+autoTrigger:if numberOfUnitsInTeam(withTag='sponge', greaterThan=0, withinRange=300) and not self.hasTags(includes="amsponge")
+temporarilyAddTags:underSponge
+
+[hiddenAction_spongeShieldRemoveTag]
+autoTrigger:if numberOfUnitsInTeam(withTag='spongeEmpty', greaterThan=0, withinRange=300) and not numberOfUnitsInTeam(withTag='sponge', greaterThan=0, withinRange=300) or  not numberOfUnitsInTeam(withTag='amsponge', greaterThan=0, withinRange=300)
+temporarilyRemoveTags:underSponge
+
+[hiddenAction_spongeShieldArmourAdd]
+autoTrigger:if self.hasTags(includes="underSponge")
+setUnitStats:armour = ${core.armour} + 3
+
+[hiddenAction_spongeShieldArmourRemove]
+autoTrigger:if not self.hasTags(includes="underSponge")
+setUnitStats:armour = ${core.armour}
+#---
+#Sponge shield regen script
 
 
 [global_resource_holmium]
