@@ -4,7 +4,7 @@ armour:0
 fogOfWarSightRangeWhileNotBuilt:2
 autoTriggerCooldownTime: 0.2s
 @memory stunDebuff:number
-
+@memory DjinTarget:unit
 
 
 [hiddenAction_gettingtargeted]
@@ -114,6 +114,33 @@ setUnitStats:armour = ${core.armour}
 #---
 #Sponge shield regen script
 
+
+#---
+#djin teleporting logic
+[hiddenAction_DjinTeleport]
+autoTrigger:if self.hasParent(withTag="beacon") 
+setUnitMemory:DjinTarget = parent.readUnitMemory("teleportTarget",type="unit")
+alsoQueueAction:DjinTeleport2
+alsoTriggerOrQueueActionConditional:if not self.hasTags(includes="tpd")
+buildSpeed:10
+allowMultipleInQueue:false
+
+[hiddenAction_DjinTeleport2]
+alsoTriggerOrQueueActionConditional:if not self.hasTags(includes="tpd")
+alsoQueueAction:DjinTeleport3
+buildSpeed:10
+
+[hiddenAction_DjinTeleport3]
+temporarilyAddTags:tpd
+disconnectFromParent:true
+teleportTo: memory.DjinTarget
+buildSpeed:0.6s
+allowMultipleInQueue:false
+
+[hiddenAction_tpd]
+autoTrigger: if self.customTimer(laterThanSeconds=2)
+temporarilyRemoveTags:tpd
+#---
 
 [global_resource_holmium]
 displayName: Holmium
