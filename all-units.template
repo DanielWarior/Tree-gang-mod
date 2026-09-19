@@ -78,10 +78,13 @@ temporarilyAddTags: iamstunned
 autoTriggerOnEvent: tookdamage(withTag="slow")
 setUnitStats:moveSpeed=${movement.moveSpeed}/1.4 - 0.1
 resetCustomTimer:true
+temporarilyAddTags:slowed
 
 [hiddenAction_slowRemove]
-autoTrigger: if self.customTimer(laterThanSeconds=2)
+autoTrigger: if self.customTimer(laterThanSeconds=2) and self.hasTags(includes="slowed")
+temporarilyRemoveTags:slowed
 setUnitStats:moveSpeed = ${movement.moveSpeed}
+autoTriggerCheckRate:every8Frames
 
 #required to include base stats to make ${section.parameter} work
 [movement]
@@ -117,28 +120,40 @@ setUnitStats:armour = ${core.armour}
 
 #---
 #djin teleporting logic
-[hiddenAction_DjinTeleport]
-autoTrigger:if self.hasParent(withTag="beacon") 
+[hiddenAction_DjinTeleport0]
+autoTriggerOnEvent:enteredTransport
+alsoTriggerOrQueueActionConditional:if self.hasParent(withTag="beacon") 
+alsoQueueAction:DjinTeleport1
+buildSpeed:5
+allowMultipleInQueue:false
+autoTriggerCheckRate:every8Frames
+
+[hiddenAction_DjinTeleport1]
 setUnitMemory:DjinTarget = parent.readUnitMemory("teleportTarget",type="unit")
 alsoQueueAction:DjinTeleport2
 alsoTriggerOrQueueActionConditional:if not self.hasTags(includes="tpd")
-buildSpeed:10
+buildSpeed:5
 allowMultipleInQueue:false
+autoTriggerCheckRate:every8Frames
 
 [hiddenAction_DjinTeleport2]
 alsoTriggerOrQueueActionConditional:if not self.hasTags(includes="tpd")
 alsoQueueAction:DjinTeleport3
-buildSpeed:10
+buildSpeed:5
+autoTriggerCheckRate:every8Frames
+allowMultipleInQueue:false
 
 [hiddenAction_DjinTeleport3]
 temporarilyAddTags:tpd
 disconnectFromParent:true
 teleportTo: memory.DjinTarget
-buildSpeed:0.6s
+buildSpeed:0.8s
 allowMultipleInQueue:false
+autoTriggerCheckRate:every8Frames
+
 
 [hiddenAction_tpd]
-autoTrigger: if self.customTimer(laterThanSeconds=2)
+autoTrigger: if self.customTimer(laterThanSeconds=4)
 temporarilyRemoveTags:tpd
 #---
 
