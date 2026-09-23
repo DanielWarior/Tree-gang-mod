@@ -48,6 +48,24 @@ attachedToUnit: true
 yOffsetRelative:7
 color:#9dfaff
 
+[effect_bigPlasmaFire]
+image:ROOT:shared\graphics\bigPlasmaFire.png
+
+life:80
+alpha:0.8
+total_frames:6
+animateFrameStart:0
+animateFrameEnd:5
+animateFrameSpeed:0.3
+fadeOut:true
+
+scaleFrom:1.5
+scaleTo:1.0
+
+attachedToUnit: true
+yOffsetRelative:-10
+color:#f200ff
+
 [effect_incendiary_grenade_explosion]
 image:ROOT:shared\graphics\napalm_explosion.png
 
