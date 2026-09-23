@@ -169,6 +169,21 @@ animateFrameLooping:true
 fadeInTime:10
 #color:
 
+[effect_medusa_explosion]
+image:ROOT:shared\graphics\medusa_explosion.png
+
+life: 150
+alpha: 1.2
+fadeOut: true
+total_frames:6
+animateFrameStart:0
+animateFrameEnd:5
+animateFrameSpeed:0.3
+fadeInTime:10
+color:#ff00f2
+scaleTo:1.5
+scaleFrom:3.0
+
 [effect_flame_start_2]
 image:ROOT:shared\graphics\flame_start_2.png
 
