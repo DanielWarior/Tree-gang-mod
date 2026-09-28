@@ -1,0 +1,65 @@
+
+[core]
+name: blita
+mass: 0
+radius: 5
+price: 0
+maxHp: 1
+
+showInEditor: false
+showOnMinimap: false
+
+ignoreInUnitCapCalculation: true
+
+fogOfWarSightRange: 0
+disableAllUnitCollisions: true
+isUnrepairableUnit: true
+isUnselectable: true
+canNotBeDirectlyAttacked: true
+
+explodeOnDeath: false
+
+
+
+[graphics]
+image: ROOT:\shared\graphics\blita.png
+
+lock_body_rotation_with_main_turret: true
+
+
+
+[attack]
+canAttack: true
+canAttackFlyingUnits: true
+canAttackLandUnits: false
+canAttackUnderwaterUnits: false
+maxAttackRange: 180
+shootDelay:0.33s
+
+
+[turret_1]
+invisible: true
+x: 0
+y: 0
+idleDir:0
+projectile: 1
+turnSpeed: 1.25
+shoot_sound:ROOT:sounds\Oculian_Armada\ocua_blita_fire1.wav
+shoot_sound_vol:0.3
+aimOffsetSpread: 0
+
+[projectile_1]
+directDamage: 40
+shieldDamageMultiplier: 1.25
+life: 300
+speed: 8.33
+drawSize: 1
+color: #f5e1e1
+lightColor: #f0b4b4
+lightSize: 0.4
+image: ROOT:shared\graphics\shell_small_yellow.png
+
+
+
+[movement]
+movementType: NONE
