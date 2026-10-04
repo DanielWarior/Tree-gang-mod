@@ -16,7 +16,7 @@ alsoPlaySound:ROOT:sounds\bigBoom.wav:0.5
 
 [effect_flame_burning]
 image:ROOT:shared\graphics\flame.png
-life: 300
+life: 150
 alpha: 1.4
 fadeInTime:2
 fadeOut: true
@@ -28,8 +28,8 @@ animateFrameLooping:true
 alsoPlaySound:ROOT:sounds\fire_burning_1.wav:1
 drawUnderUnits:true
 
-scaleFrom:1.55
-scaleTo:1.45
+scaleFrom:0.8
+scaleTo:0.6
 
 [effect_coilgun_fire_medium]
 image:ROOT:shared\graphics\coilgun_fire_medium.png
@@ -78,7 +78,7 @@ animateFrameEnd:3
 animateFrameSpeed:0.4
 fadeInTime:2
 animateFrameLooping:true
-alsoPlaySound:ROOT:sounds\grenade_explosion_1.wav:0.7
+alsoPlaySound:ROOT:sounds\grenade_explosion_1.wav:0.4
 #color:
 
 [effect_grenade_toss_incendiary]
