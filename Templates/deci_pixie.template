@@ -59,8 +59,8 @@ shoot_sound_vol:0.25
 life: 300
 deflectionPower: -1
 
-directDamage: 30
-areaDamage: 30
+directDamage: 60
+areaDamage: 60
 areaRadius: 25
 
 speed: 10
