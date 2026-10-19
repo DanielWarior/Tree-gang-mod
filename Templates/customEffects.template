@@ -217,6 +217,22 @@ animateFrameLooping:true
 fadeInTime:10
 #color:
 
+[effect_fulgor_explosion]
+image:ROOT:shared\graphics\fulgor_explosion.png
+
+scaleFrom:2.5
+scaleTo:1.5
+
+life: 160
+alpha: 0.5
+fadeOut: true
+total_frames:6
+animateFrameStart:0
+animateFrameEnd:5
+animateFrameSpeed:0.25
+#animateFrameLooping:true
+color:#a6fffa
+
 [effect_medusa_explosion]
 image:ROOT:shared\graphics\medusa_explosion.png
 
