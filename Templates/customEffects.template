@@ -37,6 +37,63 @@ hSpeed: 2
 image: SHARED:spark.png
 priority: verylow
 
+[effect_ripple]
+priority: high
+image: SHARED:ripple.png
+life: 15
+fadeOut: true
+attachedToUnit: false
+color: #ccffff
+#color: #63e6e8
+scaleFrom: 0.1
+scaleTo: 0.1
+alpha: 1
+drawUnderUnits: false
+
+[effect_lightningShock]
+life: 60
+hOffset: 0
+dirOffset: 0
+fadeInTime: 0
+fadeOut: false
+attachedToUnit: false
+image: SHARED:lightning_shock.png
+scaleFrom: 1
+scaleTo: 1
+total_frames: 14
+animateFrameStart: 0
+animateFrameEnd: 13
+animateFramePingPong: false
+animateFrameSpeed: 0.6
+
+[effect_warmup]
+priority:high
+image: SHARED:light_50.png
+life: 25
+fadeOut: true
+attachedToUnit: true
+color: #63e6e8
+scaleFrom: 0.1
+scaleTo: 0.1
+alpha: 0.8
+drawUnderUnits:false
+ySpeedRelative:3.9
+
+[effect_projectileTrail]
+image: SHARED:light_50.png
+life: 20
+fadeOut: true
+attachedToUnit: false
+color: #ccffff
+fadeInTime:2
+scaleFrom: 0.4
+scaleTo: 0.4
+alpha: 0.6
+drawUnderUnits:true
+#ySpeedRelative:-1
+
+
+
 [effect_sparks2]
 attachedToUnit: false
 life: 150
