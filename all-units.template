@@ -5,6 +5,10 @@ fogOfWarSightRangeWhileNotBuilt:2
 autoTriggerCooldownTime: 0.2s
 @memory stunDebuff:number
 @memory DjinTarget:unit
+@memory captureValue:number
+@memory captureParent:unit
+@memory originalTeam:number
+
 
 
 [hiddenAction_gettingtargeted]
@@ -22,6 +26,9 @@ canAttackFlyingUnits: if not self.hasParent(withTag='gunOff')
 canAttackLandUnits: if not self.hasParent(withTag='gunOff')
 canAttackUnderwaterUnits: if not self.hasParent(withTag='gunOff')
 
+[hiddenAction_rember]
+autoTriggerOnEvent: created
+setUnitMemory: originalTeam = self.teamId
 
 [hiddenAction_turnOffGun]
 autoTrigger: if self.hasParent
@@ -30,6 +37,45 @@ temporarilyAddTags:gunOff
 [hiddenAction_turnOnGun]
 autoTrigger: if not self.hasParent
 temporarilyRemoveTags:gunOff
+
+
+
+#--- blehhh i capture your nuts
+[hiddenAction_bahaCaptureValue]
+autoTriggerOnEvent: tookDamage(withTag="baha")
+setUnitMemory: captureValue = memory.captureValue + 10
+alsoTriggerAction: capturing
+alsoTriggerOrQueueActionConditional: if (memory.captureValue >= (self.hp + self.shield)/2) and lastDamagedBy.tags(includes='capturer')
+
+
+
+[hiddenAction_capturing]
+sendMessageTo: lastDamagedBy
+sendMessageWithTags: capturing
+debugMessage: [action log] %{self} is getting captured by %{memory.captureParent}
+
+
+
+[hiddenAction_captured]
+autoTriggerOnEvent: newMessage(withTag="captured")
+setUnitMemory: captureParent = eventSource
+switchToTeam: eventSource.teamId
+
+
+
+[hiddenAction_freedom]
+autoTrigger: if not memory.captureParent.tags(includes='capturer')
+switchToTeam: memory.originalTeam
+
+
+
+[hiddenAction_lossCaptureValue]
+autoTrigger: if self.hasTakenDamage(laterThanSeconds=5)
+setUnitMemory: captureValue= memory.captureValue-20
+
+
+
+#---
 
 [global_resource_crystal]
 displayName: Crystals
