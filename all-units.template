@@ -71,15 +71,20 @@ switchToTeam: memory.originalTeam
 debugMessage: [action log] %{self} has been uncaptured
 
 
+[hiddenAction_freedomTimed]
+autoTrigger:if self.customTimer(laterThanSeconds=30)
+switchToTeam: memory.originalTeam
+debugMessage: [action log] %{self} has been uncaptured
+resetCustomTimer:true
 
 [hiddenAction_lossCaptureValue]
-autoTrigger: if self.hasTakenDamage(laterThanSeconds=5) and not (memory.captureValue < 0)
+autoTrigger: if self.hasTakenDamage(laterThanSeconds=1) and not (memory.captureValue < 0)
 setUnitMemory: captureValue= memory.captureValue-20
 
 
 
 [decal_captureAmount]
-isVisible:if not self.hasTags(includes="captured")
+#isVisible:if not self.hasTags(includes="captured")
 image:ROOT:shared\graphics\captureOrb.png
 alpha: memory.captureValue / ((self.hp + self.shield)/2)
 onlyWhileAlive:true
