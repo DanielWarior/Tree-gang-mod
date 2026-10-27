@@ -51,6 +51,7 @@ alsoTriggerOrQueueActionConditional: if (memory.captureValue >= (self.hp + self.
 
 [hiddenAction_capturing]
 #might cause issues, since it does not filter for baha
+#ahem it won't, because it only sends a message, which the baha unit currently is the only one that responds to it
 sendMessageTo: lastDamagedBy
 sendMessageWithTags: capturing
 debugMessage: [action log] %{self} is getting captured by %{memory.captureParent}
@@ -61,23 +62,21 @@ debugMessage: [action log] %{self} is getting captured by %{memory.captureParent
 autoTriggerOnEvent: newMessage(withTag="captured")
 setUnitMemory: captureParent = eventSource
 switchToTeam: eventSource.teamId
-temporarilyAddTags:captured
 setUnitMemory:captureValue = 0
 
 
 [hiddenAction_freedom]
-#fix this
-
-autoTrigger:if memory.captureParent.hp(lessThan=1)
+autoTriggerOnEvent: newMessage(withTag="uncaptured")
 switchToTeam: memory.originalTeam
-temporarilyRemoveTags:captured
-sendMessageTo:memory.captureParent
-sendMessageWithTags: captureDied
+debugMessage: [action log] %{self} has been uncaptured
 
-[hiddenAction_lossCapture]
-autoTriggerOnEvent: destroyed
-sendMessageTo:memory.captureParent
-sendMessageWithTags: captureDied
+
+
+[hiddenAction_lossCaptureValue]
+autoTrigger: if self.hasTakenDamage(laterThanSeconds=5) and not (memory.captureValue < 0)
+setUnitMemory: captureValue= memory.captureValue-20
+
+
 
 [decal_captureAmount]
 isVisible:if not self.hasTags(includes="captured")
