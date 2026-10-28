@@ -63,7 +63,7 @@ autoTriggerOnEvent: newMessage(withTag="captured")
 setUnitMemory: captureParent = eventSource
 switchToTeam: eventSource.teamId
 setUnitMemory:captureValue = 0
-
+resetCustomTimer:true
 
 [hiddenAction_freedom]
 autoTriggerOnEvent: newMessage(withTag="uncaptured")
