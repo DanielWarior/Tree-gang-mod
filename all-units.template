@@ -88,6 +88,15 @@ setUnitMemory: captureValue= memory.captureValue-20
 image:ROOT:shared\graphics\captureOrb.png
 alpha: memory.captureValue / ((self.hp + self.shield)/2)
 onlyWhileAlive:true
+
+[decal_captureTimer]
+isVisible:if memory.freedomTime != 0
+image:ROOT:shared\graphics\captureIndicator.png
+
+#normalizing the value math
+alpha: ( (memory.freedomTime + 30) - self.timeAlive() ) / 30
+
+onlyWhileAlive:true
 #---
 
 [global_resource_crystal]
