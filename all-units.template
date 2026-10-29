@@ -8,6 +8,7 @@ autoTriggerCooldownTime: 0.2s
 @memory captureValue:number
 @memory captureParent:unit
 @memory originalTeam:number
+@memory freedomTime:number
 
 
 
@@ -62,8 +63,7 @@ debugMessage: [action log] %{self} is getting captured by %{memory.captureParent
 autoTriggerOnEvent: newMessage(withTag="captured")
 setUnitMemory: captureParent = eventSource
 switchToTeam: eventSource.teamId
-setUnitMemory:captureValue = 0
-resetCustomTimer:true
+setUnitMemory:captureValue = 0, freedomTime = self.timeAlive()
 
 [hiddenAction_freedom]
 autoTriggerOnEvent: newMessage(withTag="uncaptured")
@@ -72,10 +72,10 @@ debugMessage: [action log] %{self} has been uncaptured
 
 
 [hiddenAction_freedomTimed]
-autoTrigger:if self.customTimer(laterThanSeconds=30)
+autoTrigger:if (self.timeAlive() > (memory.freedomTime + 30)) and not (memory.freedomTime == 0)
 switchToTeam: memory.originalTeam
 debugMessage: [action log] %{self} has been uncaptured
-resetCustomTimer:true
+setUnitMemory: freedomTime = 0
 
 [hiddenAction_lossCaptureValue]
 autoTrigger: if self.hasTakenDamage(laterThanSeconds=1) and not (memory.captureValue < 0)
