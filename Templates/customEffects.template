@@ -1,4 +1,11 @@
 #custom effect script
+
+#List of all the base game sounds
+#bug_attack, bug_die, building_explode, cannon_firing, click, click_add, click_remove,
+#firing3, firing4, gun_fire, interface_error, large_gun_fire1, large_gun_fire2, laser_deflect, 
+#laser_deflect2, lighting_burst, message, missile_fire, missile_hit, move, nuke_explode,
+#nuke_launch, plasma_fire, plasma_fire2, tank_firing, unit_explode, unit_explode_old, warning
+
 [core]
 
 [effect_hitLightFlash]
@@ -165,6 +172,24 @@ scaleTo:0.3
 attachedToUnit: true
 yOffsetRelative:7
 color:#9dfaff
+
+[effect_fulgorFireSmall]
+image:ROOT:shared\graphics\fulgor_fire_small.png
+life:80
+alpha:1.5
+total_frames:4
+animateFrameStart:0
+animateFrameEnd:3
+animateFrameSpeed:0.55
+
+fadeInTime:5
+
+scaleFrom:1
+scaleTo:0.5
+
+attachedToUnit: true
+yOffsetRelative:3
+#color:#9dfaff
 
 [effect_bigPlasmaFire]
 image:ROOT:shared\graphics\bigPlasmaFire.png
