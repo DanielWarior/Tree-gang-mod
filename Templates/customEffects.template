@@ -156,6 +156,23 @@ drawUnderUnits:true
 scaleFrom:0.8
 scaleTo:0.6
 
+[effect_plasma_fire_medium]
+image:ROOT:shared\graphics\plasma_fire_medium.png
+
+life:80
+alpha:1.0
+total_frames:8
+animateFrameStart:0
+animateFrameEnd:7
+animateFrameSpeed:0.5
+
+scaleFrom:2
+scaleTo:1
+
+attachedToUnit: true
+yOffsetRelative:12
+color:#00f2ff
+
 [effect_coilgun_fire_medium]
 image:ROOT:shared\graphics\coilgun_fire_medium.png
 
