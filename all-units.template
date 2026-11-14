@@ -10,7 +10,11 @@ autoTriggerCooldownTime: 0.2s
 @memory originalTeam:number
 @memory freedomTime:number
 
-
+#shieldBuilding tag adder
+[hiddenAction_shieldtag]
+autoTriggerOnEvent: created
+requireConditional:if self.hasTags(includes="building") and self.maxShield > 0
+temporarilyAddTags: shieldBuilding
 
 [hiddenAction_gettingtargeted]
 autoTriggerOnEvent: tookDamage(withTag='targethangar')
