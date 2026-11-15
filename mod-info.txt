@@ -1,7 +1,7 @@
 [mod]
 title:Tree gang's mod V:0.7.2
 
-description: Full conversion mod to surpass metal gear, featuring 3 unique faction, Dominion, Fulgorian, and Oculian armada. Credits:LeojEspino, Whatevermanh, Danwarion. Special thanks: Superrfw, Xprotonus, Static, Barsdars.
+description: Full conversion mod to surpass metal gear, featuring 3 unique faction, Dominion, Fulgorian, and Oculian armada. Credits:LeojEspino, Whatevermanh, Danwarion, Static. Special thanks: Superrfw, Xprotonus, Static, Barsdars, Asik.
 
 tags: Total Conversion,Full Conversion, Units, Buildings, PvP
 
