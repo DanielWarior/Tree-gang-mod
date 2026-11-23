@@ -1,0 +1,34 @@
+[core]
+@memory attackRange:number
+
+[hiddenAction_instantiate]
+autoTriggerOnEvent:created
+setUnitMemory: attackRange= ${attack.maxAttackRange} 
+temporarilyAddTags:kitingBehaviour, hasKiting
+debugMessage: %{memory.attackRange}
+
+[hiddenAction_kite]
+autoTrigger: if (((distanceBetween(self, attacking) < memory.attackRange - 25) and self.isAttacking()and self.hasTags(includes="kitingBehaviour"))and self.isControlledByAI())
+
+addWaypoint_prepend:true
+addWaypoint_target_fromReference: createMarker(x=self.x, y=self.y, dir=direction(self.x, self.y, attacking.x, attacking.y)).getOffsetRelative(y=-20 + select(0>(${movement.moveAccelerationSpeed} - ${movement.moveDecelerationSpeed}), 0, -10))
+debugMessage: %{-10 + (${movement.moveAccelerationSpeed} - ${movement.moveDecelerationSpeed} *100 }
+
+
+addWaypoint_type: move
+allowMultipleInQueue: false
+debugMessage:%{distanceBetween(self, attacking)}
+
+[action_TurnOffKiting]
+buildSpeed:0
+isVisible:if self.hasTags(includes="kitingBehaviour") and self.isControlledByAI() 
+text:Turn Off kiting
+ai_isDisabled:true
+temporarilyRemoveTags:kitingBehaviour
+
+[action_TurnOnKiting]
+buildSpeed:0
+isVisible:if self.hasTags(includes="hasKiting") and self.isControlledByAI() and not self.hasTags(includes="kitingBehaviour")
+text:Turn On kiting
+ai_isDisabled:true
+temporarilyAddTags:kitingBehaviour

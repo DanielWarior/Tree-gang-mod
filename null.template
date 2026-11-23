@@ -1,4 +1,5 @@
 [core]
+name:null
 class: CustomUnitMetadata
 price: 0
 maxHp: 1
