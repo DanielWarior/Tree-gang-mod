@@ -1,0 +1,31 @@
+[core]
+#Made by Danwarior, No Yoinking
+@memory engageRange:number
+
+[hiddenAction_instantiate]
+autoTriggerOnEvent:created
+temporarilyAddTags:swarmBehaviour, hasSwarm
+setUnitMemory:engageRange=${attack.maxAttackRange-10}
+
+[hiddenAction_swarm]
+autoTriggerCheckRate:every4Frames
+autoTrigger: if self.numberOfUnitsInEnemyTeam(greaterThan=0, withinRange=${attack.maxAttackRange+25}) and (self.hasActiveWaypoint(type="attack") or self.hasActiveWaypoint(type="attackMove")) and self.hasTags(includes="swarmBehaviour")and self.isControlledByAI()
+
+addWaypoint_prepend:true
+addWaypoint_type:move
+addWaypoint_target_fromReference: createMarker(x=self.x, y=self.y, dir=direction(self.x, self.y, select(self.isAttacking(),attacking.x,activeWaypointTarget.x) + rnd(-memory.engageRange/5.0, memory.engageRange/5.0), select(self.isAttacking(),attacking.y,activeWaypointTarget.y) + rnd(-memory.engageRange/5.0, memory.engageRange/5.0))).getOffsetRelative(y=${attack.maxAttackRange-20})
+debugMessage: %{activeWaypointTarget},%{distanceBetween(self, attacking)}, %{self.isAttacking()}
+
+[action_TurnOffSwarm]
+buildSpeed:0
+isVisible:if self.hasTags(includes="swarmBehaviour") and self.isControlledByAI() 
+text:Turn Off Swarming
+ai_isDisabled:true
+temporarilyRemoveTags:swarmBehaviour
+
+[action_TurnOnSwarm]
+buildSpeed:0
+isVisible:if self.hasTags(includes="hasSwarm") and self.isControlledByAI() and not self.hasTags(includes="swarmBehaviour")
+text:Turn On Swarming
+ai_isDisabled:true
+temporarilyAddTags:swarmBehaviour

@@ -1,4 +1,5 @@
 [core]
+#Made by Danwarior, No Yoinking
 @memory attackRange:number
 
 [hiddenAction_instantiate]
@@ -8,12 +9,12 @@ temporarilyAddTags:kitingBehaviour, hasKiting
 debugMessage: %{memory.attackRange}
 
 [hiddenAction_kite]
-autoTrigger: if (((distanceBetween(self, attacking) < memory.attackRange - 25) and self.isAttacking()and self.hasTags(includes="kitingBehaviour"))and self.isControlledByAI())
-
+autoTrigger: if (((distanceBetween(self, attacking) < memory.attackRange /1.16) and self.isAttacking()and self.hasTags(includes="kitingBehaviour"))and self.isControlledByAI())
+autoTriggerCheckRate:every8Frames
 addWaypoint_prepend:true
-addWaypoint_target_fromReference: createMarker(x=self.x, y=self.y, dir=direction(self.x, self.y, attacking.x, attacking.y)).getOffsetRelative(y=-20 + select(0>(${movement.moveAccelerationSpeed} - ${movement.moveDecelerationSpeed}), 0, -10))
+addWaypoint_target_fromReference: createMarker(x=self.x, y=self.y, dir=direction(self.x, self.y, attacking.x, attacking.y)).getOffsetRelative(y=-24 + select(0>(${movement.moveAccelerationSpeed} - ${movement.moveDecelerationSpeed}), 9, 0))
 debugMessage: %{-10 + (${movement.moveAccelerationSpeed} - ${movement.moveDecelerationSpeed} *100 }
-
+addWaypoint_maxTime:3s
 
 addWaypoint_type: move
 allowMultipleInQueue: false
