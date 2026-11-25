@@ -9,6 +9,140 @@ autoTriggerCooldownTime: 0.2s
 @memory captureParent:unit
 @memory originalTeam:number
 @memory freedomTime:number
+@memory costValue:number
+@memory aiBehaviourTimer:number
+
+#Sets the memory for unit cost and other things if needed
+[hiddenAction_instantiate]
+autoTriggerOnEvent: created
+setUnitMemory: costValue = self.priceCredits()
+
+
+#Attackable Type Block ---{
+
+[hiddenAction_UnitAttackableTypeLand]
+autoTriggerCheckRate:every8Frames
+autoTrigger:if not self.hasTags(includes="land")
+requireConditional: if (self.height() >= 0 and self.height() <= 3.5 )  or "${movement.movementType}" !="AIR"
+temporarilyAddTags:land
+temporarilyRemoveTags:air, sub
+
+[hiddenAction_UnitAttackableTypeAir]
+autoTriggerCheckRate:every8Frames
+autoTrigger:if not self.hasTags(includes="air")
+requireConditional: if (self.height() >= 3.5 )  and "${movement.movementType}" =="AIR"
+temporarilyAddTags:air
+temporarilyRemoveTags:land, sub
+
+[hiddenAction_UnitAttackableTypeSub]
+autoTriggerCheckRate:every8Frames
+autoTrigger:if not self.hasTags(includes="sub")
+requireConditional: if self.height() < 0 
+temporarilyAddTags:sub
+temporarilyRemoveTags:air, land
+
+#Attackable Type Block }---
+
+
+#AI block ---{
+
+[hiddenAction_AiInstantiate]
+autoTriggerOnEvent: created
+requireConditional:if self.isControlledByAI()
+temporarilyAddTags: aiControlled, active
+setUnitMemory:aiBehaviourTimer=self.timeAlive()
+
+#AI targeting Block ---{{
+
+[hiddenAction_AiCheckTargetingLand]
+autoTriggerCheckRate:every8Frames
+autoTrigger:if self.lastConverted() < 5 or not self.hasTags(includes="shootsLand")
+requireConditional:if "${attack.canAttackLandUnits}" != "false"
+temporarilyAddTags:shootsLand
+
+[hiddenAction_AiCheckTargetingAir]
+autoTriggerCheckRate:every8Frames
+autoTrigger:if self.lastConverted() < 5 or not self.hasTags(includes="shootsAir")
+requireConditional:if "${attack.canAttackFlyingUnits}" != "false"
+temporarilyAddTags:shootsAir
+
+[hiddenAction_AiCheckTargetingSub]
+autoTriggerCheckRate:every8Frames
+autoTrigger:if self.lastConverted() < 5 or not self.hasTags(includes="shootsSub")
+requireConditional:if "${attack.canAttackUnderwaterUnits}" != "false"
+temporarilyAddTags:shootsSub
+
+#AI targeting Block }}---
+
+[action_AiBehaviourSwitchOff]
+text:AI main behaviour OFF
+isVisible:if self.hasTags(includes="aiControlled") and not self.hasTags(includes="aiControlledOff") 
+ai_isDisabled:true
+temporarilyAddTags: aiControlledOff
+
+[action_AiBehaviourSwitchOn]
+text:AI main behaviour ON
+isVisible:if self.hasTags(includes="aiControlled") and self.hasTags(includes="aiControlledOff") 
+ai_isDisabled:true
+temporarilyRemoveTags: aiControlledOff
+
+#AI targeting Behaviour Block ---{{
+
+#add the notCombatUnit tag to units you do not want affected by this
+
+[hiddenAction_attackBehaviourLand]
+buildSpeed:1s
+autoTriggerCheckRate:every8Frames
+autoTrigger:if (self.hasTags(includes="aiControlled") and self.hasTags(includes="shootsLand") and not self.hasTags(includes="aiControlledOff")) and not self.hasTags(includes="notCombatUnit")
+requireConditional:if self.hasTags(includes="active") and self.timeAlive() > memory.aiBehaviourTimer + 15
+
+setUnitMemory:aiBehaviourTimer=self.timeAlive()
+
+addWaypoint_type:attackMove
+clearActiveWaypoint:false
+addWaypoint_prepend:true
+addWaypoint_maxTime:30s
+addWaypoint_target_nearestUnit_team:enemy
+addWaypoint_target_mapMustBeReachable:true
+addWaypoint_target_nearestUnit_tagged:land
+
+[hiddenAction_attackBehaviourAir]
+buildSpeed:1s
+autoTriggerCheckRate:every8Frames
+autoTrigger:if (self.hasTags(includes="aiControlled") and self.hasTags(includes="shootsAir") and not self.hasTags(includes="aiControlledOff")) and not self.hasTags(includes="notCombatUnit")
+requireConditional:if self.hasTags(includes="active") and self.timeAlive() > memory.aiBehaviourTimer + 15
+
+setUnitMemory:aiBehaviourTimer=self.timeAlive()
+
+addWaypoint_type:attackMove
+clearActiveWaypoint:false
+addWaypoint_prepend:true
+addWaypoint_maxTime:30s
+addWaypoint_target_nearestUnit_team:enemy
+addWaypoint_target_mapMustBeReachable:true
+addWaypoint_target_nearestUnit_tagged:air
+
+[hiddenAction_attackBehaviourSub]
+buildSpeed:1s
+autoTriggerCheckRate:every8Frames
+autoTrigger:if (self.hasTags(includes="aiControlled") and self.hasTags(includes="shootsSub") and not self.hasTags(includes="aiControlledOff")) and not self.hasTags(includes="notCombatUnit")
+requireConditional:if self.hasTags(includes="active") and self.timeAlive() > memory.aiBehaviourTimer + 15
+
+setUnitMemory:aiBehaviourTimer=self.timeAlive()
+
+addWaypoint_type:attackMove
+clearActiveWaypoint:false
+addWaypoint_prepend:true
+addWaypoint_maxTime:30s
+addWaypoint_target_nearestUnit_team:enemy
+addWaypoint_target_mapMustBeReachable:true
+addWaypoint_target_nearestUnit_tagged:sub
+
+#AI targeting Behaviour Block }}---
+
+#Maybe make a cost counter block in the future, but unlikelly, cause rusted jank is one gorillion percent gonna ruin it lol
+
+#AI block }---
 
 #shieldBuilding tag adder
 [hiddenAction_shieldtag]
